@@ -1,16 +1,6 @@
 <?php
 
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Render\Element;
-use Drupal\Core\Url;
-use Drupal\field\Entity\FieldConfig;
-use Drupal\relation\RelationTypeInterface;
-use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Markup;
-use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_render_template().
