@@ -66,7 +66,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   /**
    * Provides the node submission form.
    *
-   * @param $node
+   * @param string $node
    *   The current node id.
    *
    * @return array
@@ -95,7 +95,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   /**
    * The _title_callback for the node.add route.
    *
-   * @param $node
+   * @param string $node
    *   The current node id.
    *
    * @return string
@@ -111,8 +111,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   }
 
   /**
-   * Get the parent fields in order to inject into form_state for
-   * pre-population.
+   * Get the parent fields in order to inject into form_state.
    *
    * @param Node $parent_node
    *   The parent node.
@@ -138,15 +137,16 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
 
   /**
    * Only add an IEF to the child if it existed in the parent.
+   * 
    * If we don't do this check, validation is on for blank child IEF fields.
    *
-   * @param $iefs
+   * @param array $iefs
    *   An array from the parent form.
    *
    * @return array
    *   The manipulated array without blank iefs.
    */
-  public function getParentIefs($iefs) {
+  public function getParentIefs(array $iefs) {
     $has_references = FALSE;
     foreach ($iefs as $key => $value) {
       if (isset($value['#id'])) {

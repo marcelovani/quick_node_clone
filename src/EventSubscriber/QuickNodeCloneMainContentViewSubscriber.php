@@ -2,8 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\quick_node_clone\EventSubscriber\
- *   QuickNodeCloneMainContentViewSubscriber.
+ * Contains QuickNodeCloneMainContentViewSubscriber.
  */
 
 namespace Drupal\quick_node_clone\EventSubscriber;

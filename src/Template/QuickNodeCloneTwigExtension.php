@@ -64,7 +64,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Constructs \Drupal\Core\Template\TwigExtension.
    *
-   * @param \Drupal\Core\Render\RendererInterface $renderer
+   * @param \Drupal\quick_node_clone\Render\QuickNodeCloneRenderer $renderer
    *   The renderer.
    */
   public function __construct(QuickNodeCloneRenderer $renderer) {
@@ -209,7 +209,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Generates a URL path given a route name and parameters.
    *
-   * @param $name
+   * @param string
    *   The name of the route.
    * @param array $parameters
    *   An associative array of route parameters names and values.
@@ -217,7 +217,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
    *   (optional) An associative array of additional options. The 'absolute'
    *   option is forced to be FALSE.
    *
-   * @see \Drupal\Core\Routing\UrlGeneratorInterface::generateFromRoute().
+   * @see \Drupal\Core\Routing\UrlGeneratorInterface::generateFromRoute()
    *
    * @return string
    *   The generated URL path (relative URL) for the given route.
@@ -230,7 +230,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Generates an absolute URL given a route name and parameters.
    *
-   * @param $name
+   * @param string
    *   The name of the route.
    * @param array $parameters
    *   An associative array of route parameter names and values.
@@ -368,7 +368,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Provides a placeholder wrapper around ::escapeFilter.
    *
-   * @param \Twig_Environment $env
+   * @param \Twig_Environment
    *   A Twig_Environment instance.
    * @param mixed $string
    *   The value to be escaped.
@@ -471,10 +471,10 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Wrapper around render() for twig printed output.
    *
-   * If an object is passed that has no __toString method an exception is thrown;
-   * other objects are casted to string. However in the case that the object is an
-   * instance of a Twig_Markup object it is returned directly to support auto
-   * escaping.
+   * If an object is passed that has no __toString method an exception is
+   * thrown; other objects are casted to string. However in the case that the
+   * object is an instance of a Twig_Markup object it is returned directly to
+   * support auto escaping.
    *
    * If an array is passed it is rendered via render() and scalar values are
    * returned directly.

@@ -163,7 +163,7 @@ class QuickNodeCloneFormBuilder extends FormBuilder {
     if (isset($element['#process']) && !$element['#processed']) {
       foreach ($element['#process'] as $callback) {
         $complete_form = &$form_state->getCompleteForm();
-        $element = call_user_func_array($form_state->prepareCallback($callback),array(
+        $element = call_user_func_array($form_state->prepareCallback($callback), array(
             &$element,
             &$form_state,
             &$complete_form,

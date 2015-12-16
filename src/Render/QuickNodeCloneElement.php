@@ -5,8 +5,8 @@
  * Contains \Drupal\quick_node_clone\Render\QuickNodeCloneElement.
  *
  * The reason we're extending this method for quick_node_clone is to allow
- * non-standard elements in a render array to not throw "User error" when Devel is
- * disabled.
+ * non-standard elements in a render array to not throw "User error" when Devel
+ * is disabled.
  */
 
 namespace Drupal\quick_node_clone\Render;
@@ -60,15 +60,6 @@ class QuickNodeCloneElement extends Element {
           // Supports weight with up to three digit precision and conserve
           // the insertion order.
           $child_weights[$key] = floor($weight * 1000) + $i / $count;
-        }
-        // Only trigger an error if the value is not null.
-        // @see https://www.drupal.org/node/1283892
-        elseif (isset($value)) {
-          // @GFS
-          // We're commenting out this error in order to have non-standard
-          // elements in a render array for cloning purposes (IEF/ICPF
-          // insert non-standard elements.)
-          // trigger_error(SafeMarkup::format('"@key" is an invalid render array key', array('@key' => $key)), E_USER_ERROR);
         }
       }
       $i++;

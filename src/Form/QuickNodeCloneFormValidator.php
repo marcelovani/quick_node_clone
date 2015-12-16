@@ -51,7 +51,7 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
    * and selected options were in the list of options given to the user. Then
    * calls user-defined validators.
    *
-   * @param $elements
+   * @param array
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form. The current user-submitted data is stored

@@ -52,7 +52,7 @@ class QuickNodeCloneThemeManager extends ThemeManager implements ThemeManagerInt
 
     $active_theme = $this->getActiveTheme();
 
-    // If called before all modules are loaded, we do not necessarily have a 
+    // If called before all modules are loaded, we do not necessarily have a
     // full theme registry to work with, and therefore cannot process the theme
     // request properly. See also \Drupal\Core\Theme\Registry::get().
     if (!$this->moduleHandler->isLoaded() && !defined('MAINTENANCE_MODE')) {

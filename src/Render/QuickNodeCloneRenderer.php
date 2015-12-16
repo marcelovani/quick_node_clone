@@ -31,7 +31,7 @@ class QuickNodeCloneRenderer extends Renderer {
    *
    * @param \Drupal\Core\Controller\ControllerResolverInterface $controller_resolver
    *   The controller resolver.
-   * @param \Drupal\Core\Theme\ThemeManagerInterface $theme
+   * @param \Drupal\quick_node_clone\Theme\QuickNodeCloneThemeManager $theme
    *   The theme manager.
    * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info
    *   The element info.
@@ -181,9 +181,10 @@ class QuickNodeCloneRenderer extends Renderer {
         '#lazy_builder',
         '#cache',
         '#create_placeholder',
-        // These keys are not actually supported, but they are added automatically
-        // by the Renderer, so we don't crash on them; them being missing when
-        // their #lazy_builder callback is invoked won't surprise the developer.
+        // These keys are not actually supported, but they are added
+        // automatically by the Renderer, so we don't crash on them; them
+        // being missing when their #lazy_builder callback is invoked won't 
+        // surprise the developer.
         '#weight',
         '#printed',
       ];

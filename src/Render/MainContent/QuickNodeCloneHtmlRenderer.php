@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\quick_node_clone\Render\MainContent\QuickNodeCloneHtmlRenderer.
+ * Contains QuickNodeCloneHtmlRenderer.
  */
 
 namespace Drupal\quick_node_clone\Render\MainContent;
@@ -40,7 +40,7 @@ class QuickNodeCloneHtmlRenderer extends HtmlRenderer implements MainContentRend
    *   The event dispatcher.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
+   * @param \Drupal\quick_node_clone\Render\QuickNodeCloneRenderer $renderer
    *   The renderer service.
    * @param \Drupal\Core\Render\RenderCacheInterface $render_cache
    *   The render cache service.
