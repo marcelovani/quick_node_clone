@@ -36,7 +36,7 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
    *   The CSRF token generator.
    * @param \Psr\Log\LoggerInterface $logger
    *   A logger instance.
-   * @param \Drupal\Core\Form\FormErrorHandlerInterface $form_error_handler
+   * @param \Drupal\quick_node_clone\Form\QuickNodeCloneFormErrorHandler $form_error_handler
    *   The form error handler.
    */
   public function __construct(RequestStack $request_stack, TranslationInterface $string_translation, CsrfTokenGenerator $csrf_token, LoggerInterface $logger, QuickNodeCloneFormErrorHandler $form_error_handler) {
@@ -54,7 +54,7 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
    * and selected options were in the list of options given to the user. Then
    * calls user-defined validators.
    *
-   * @param $elements
+   * @param array $elements
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form. The current user-submitted data is stored
@@ -66,7 +66,7 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
    *   This technique is useful when validation requires file parsing,
    *   web service requests, or other expensive requests that should
    *   not be repeated in the submission step.
-   * @param $form_id
+   * @param string $form_id
    *   A unique string identifying the form for validation, submission,
    *   theming, and hook_form_alter functions.
    */
@@ -116,7 +116,13 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
       elseif (isset($elements['#element_validate'])) {
         foreach ($elements['#element_validate'] as $callback) {
           $complete_form = &$form_state->getCompleteForm();
-          call_user_func_array($form_state->prepareCallback($callback), array(&$elements, &$form_state, &$complete_form));
+          call_user_func_array($form_state->prepareCallback($callback), 
+            array(
+              &$elements,
+              &$form_state,
+              &$complete_form
+            )
+          );
         }
       }
 

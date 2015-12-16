@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\quick_node_clone\Form\QuickNodeCloneNodeForm
+ * Contains \Drupal\quick_node_clone\Form\QuickNodeCloneNodeForm.
  */
 
 namespace Drupal\quick_node_clone\Form;
@@ -17,8 +17,9 @@ use Drupal\Core\Routing\RouteMatch;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Form controller for Quick Node Clone edit forms. We can override most of
- * the node form from here! Hooray!
+ * Form controller for Quick Node Clone edit forms.
+ *
+ * We can override most of the node form from here! Hooray!
  */
 class QuickNodeCloneNodeForm extends NodeForm {
 
@@ -41,9 +42,8 @@ class QuickNodeCloneNodeForm extends NodeForm {
     $clone_form_state = $form_state;
     $form = parent::form($form, $form_state);
 
-    //Set default values for our form from the parent
+    // Set default values for our form from the parent
     $form = $this->populateCloneAddForm($form, $clone_form_state);
-    
     
     return $form;
   }
@@ -69,7 +69,8 @@ class QuickNodeCloneNodeForm extends NodeForm {
 
       // Add a "Publish" button.
       $element['publish'] = $element['submit'];
-      // If the "Publish" button is clicked, we want to update the status to "published".
+      // If the "Publish" button is clicked, we want to update the status
+      // to "published".
       $element['publish']['#published_status'] = TRUE;
 
       if ($node->isNew()) {
@@ -130,7 +131,11 @@ class QuickNodeCloneNodeForm extends NodeForm {
     $insert = $node->isNew();
     $node->save();
     $node_link = $node->link($this->t('View'));
-    $context = array('@type' => $node->getType(), '%title' => $node->label(), 'link' => $node_link);
+    $context = array(
+      '@type'  => $node->getType(),
+      '%title' => $node->label(),
+      'link'   => $node_link
+    );
     $t_args = array('@type' => node_get_type_label($node), '%title' => $node->label());
 
     if ($insert) {
@@ -170,15 +175,16 @@ class QuickNodeCloneNodeForm extends NodeForm {
 
   /**
    * Construct a form with default values from the parent content.
+   *
    * Uses the data within $form_state that QuickNodeCloneNodeController
    * sends over.
    *
-   * @param $form
+   * @param array $form
    *   The new node form.
-   * @param $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The new form state.
    *
-   * @return $form
+   * @return array
    *   The manipulated form with default values.
    */
   public function populateCloneAddForm($form, $form_state) {
@@ -212,18 +218,18 @@ class QuickNodeCloneNodeForm extends NodeForm {
   /**
    * Populate textfield default values in a form field.
    *
-   * @param $form
+   * @param array $form
    *   The form to populate.
-   * @param $name
+   * @param string $name
    *   The field name to target.
-   * @param $value
+   * @param array $value
    *   The value to set as default.
    *
-   * @return $form
+   * @return array
    *   The manipulated form with default value added to one textfield.
    */
   public function populateDefaultTextfield($form, $name, $value) {
-    //Default textfield content
+    // Default textfield content
     if($name == 'title') {
       $content = 'Clone of ' . $value[0]['value'];
     } else {
@@ -242,18 +248,18 @@ class QuickNodeCloneNodeForm extends NodeForm {
   /**
    * Populate textarea default values in a form field.
    *
-   * @param $form
+   * @param array $form
    *   The form to populate.
-   * @param $name
+   * @param string $name
    *   The field name to target.
-   * @param $value
+   * @param array $value
    *   The value to set as default.
    *
-   * @return $form
+   * @return array
    *   The manipulated form with default value added to one textarea.
    */
   public function populateDefaultTextarea($form, $name, $value) {
-    //Default textarea content
+    // Default textarea content
     if(isset($value[0]['value'])) {
       $content = $value[0]['value'];
     } else {
@@ -269,21 +275,21 @@ class QuickNodeCloneNodeForm extends NodeForm {
   /**
    * Populate select list default values in a form field.
    *
-   * @param $form
+   * @param array $form
    *   The form to populate.
-   * @param $name
+   * @param string $name
    *   The field name to target.
-   * @param $value
+   * @param array $value
    *   The value to set as default.
    *
-   * @return $form
+   * @return array
    *   The manipulated form with default value added to one select list.
    */
   public function populateDefaultSelect($form, $name, $value) {
     if(!isset($form[$name]['widget']['#default_value']) && 
       !isset($form[$name]['widget']['#ief_id'])) {
 
-      //The widget value is just a single select value (Ex: Workflow)
+      // The widget value is just a single select value
       if(isset($value[0]['value']) && !isset($value[1]['value'])) {
         $form[$name]['widget']['#default_value'] = $value[0]['value'];
       }
@@ -294,21 +300,21 @@ class QuickNodeCloneNodeForm extends NodeForm {
   /**
    * Populate taxonomy default values in a form field.
    *
-   * @param $form
+   * @param array $form
    *   The form to populate.
-   * @param $name
+   * @param string $name
    *   The field name to target.
-   * @param $value
+   * @param array $value
    *   The value to set as default.
    *
-   * @return $form
+   * @return array
    *   The manipulated form with default value added to one taxonomy 
    *   term reference.
    */
   public function populateDefaultTaxonomy($form, $name, $value) {
     if(!isset($form[$name]['widget']['#ief_id'])) {
 
-      //The widget value might be multiple references (Ex: Taxonomy)
+      // The widget value might be multiple references (Ex: Taxonomy)
       if(isset($value[0]['target_id'])) {
         $referenced_ids = [];
         foreach($value as $ids) {

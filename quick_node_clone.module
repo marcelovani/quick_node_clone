@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains quick_node_clone.module
+ * Contains quick_node_clone.module.
  */
 
 use Drupal\Core\Render\Markup;
