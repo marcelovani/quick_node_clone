@@ -23,7 +23,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
-   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
+   * @param \Drupal\quick_node_clone\Form\QuickNodeCloneFormBuilder $form_builder
    *   The form builder.
    */
   public function __construct(EntityManagerInterface $entity_manager, QuickNodeCloneFormBuilder $form_builder) {

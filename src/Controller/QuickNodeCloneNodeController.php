@@ -32,8 +32,10 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
    *
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date formatter service.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
+   * @param \Drupal\quick_node_clone\Render\QuickNodeCloneRenderer $renderer
    *   The renderer service.
+   * @param \Drupal\quick_node_clone\Render\QuickNodeCloneEntityFormBuilder $entity_form_builder
+   *   The form builder service.
    */
   public function __construct(DateFormatterInterface $date_formatter, QuickNodeCloneRenderer $renderer, QuickNodeCloneEntityFormBuilder $entity_form_builder) {
     parent::__construct($date_formatter, $renderer);
@@ -64,8 +66,8 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   /**
    * Provides the node submission form.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
-   *   The node type entity for the node.
+   * @param $node
+   *   The current node id.
    *
    * @return array
    *   A node submission form.
@@ -93,8 +95,8 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   /**
    * The _title_callback for the node.add route.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
-   *   The current node.
+   * @param $node
+   *   The current node id.
    *
    * @return string
    *   The page title.
@@ -112,13 +114,13 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
    * Get the parent fields in order to inject into form_state for
    * pre-population.
    *
-   * @param \Drupal\node\Node $parent_node
+   * @param Node $parent_node
    *   The parent node.
    *
    * @return array
    *   The associative array of starting fields.
    */
-  public function getParentNodeFields($parent_node) {
+  public function getParentNodeFields(Node $parent_node) {
     $parent = $parent_node->toArray();
     $starting_fields = array();
     foreach ($parent as $name => $value) {
@@ -145,16 +147,16 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
    *   The manipulated array without blank iefs.
    */
   public function getParentIefs($iefs) {
-    $hasReferences = FALSE;
+    $has_references = FALSE;
     foreach ($iefs as $key => $value) {
       if (isset($value['#id'])) {
-        $hasReferences = FALSE;
-        foreach ($value['entities'] as $eVal) {
-          if (isset($eVal['#id'])) {
-            $hasReferences = TRUE;
+        $has_references = FALSE;
+        foreach ($value['entities'] as $e_val) {
+          if (isset($e_val['#id'])) {
+            $has_references = TRUE;
           }
         }
-        if (!$hasReferences) {
+        if (!$has_references) {
           unset($iefs[$key]);
         }
       }

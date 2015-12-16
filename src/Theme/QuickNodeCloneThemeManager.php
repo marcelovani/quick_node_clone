@@ -34,6 +34,7 @@ class QuickNodeCloneThemeManager extends ThemeManager implements ThemeManagerInt
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The request stack.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
   public function __construct($root, ThemeNegotiatorInterface $theme_negotiator, ThemeInitializationInterface $theme_initialization, RequestStack $request_stack, ModuleHandlerInterface $module_handler) {
     $this->root = $root;
@@ -51,8 +52,8 @@ class QuickNodeCloneThemeManager extends ThemeManager implements ThemeManagerInt
 
     $active_theme = $this->getActiveTheme();
 
-    // If called before all modules are loaded, we do not necessarily have a full
-    // theme registry to work with, and therefore cannot process the theme
+    // If called before all modules are loaded, we do not necessarily have a 
+    // full theme registry to work with, and therefore cannot process the theme
     // request properly. See also \Drupal\Core\Theme\Registry::get().
     if (!$this->moduleHandler->isLoaded() && !defined('MAINTENANCE_MODE')) {
       throw new \Exception(t('_theme() may not be called until all modules are loaded.'));

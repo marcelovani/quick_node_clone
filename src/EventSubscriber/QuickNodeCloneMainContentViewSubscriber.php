@@ -2,7 +2,8 @@
 
 /**
  * @file
- * Contains \Drupal\quick_node_clone\EventSubscriber\QuickNodeCloneMainContentViewSubscriber.
+ * Contains \Drupal\quick_node_clone\EventSubscriber\
+ *   QuickNodeCloneMainContentViewSubscriber.
  */
 
 namespace Drupal\quick_node_clone\EventSubscriber;
@@ -114,7 +115,7 @@ class QuickNodeCloneMainContentViewSubscriber implements EventSubscriberInterfac
   /**
    * {@inheritdoc}
    */
-  static function getSubscribedEvents() {
+  public static function getSubscribedEvents() {
     $events[KernelEvents::VIEW][] = ['onViewRenderArray', 100];
 
     return $events;
