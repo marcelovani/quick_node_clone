@@ -54,7 +54,7 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
    * and selected options were in the list of options given to the user. Then
    * calls user-defined validators.
    *
-   * @param array $elements
+   * @param $elements
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form. The current user-submitted data is stored
@@ -116,11 +116,11 @@ class QuickNodeCloneFormValidator extends FormValidator implements FormValidator
       elseif (isset($elements['#element_validate'])) {
         foreach ($elements['#element_validate'] as $callback) {
           $complete_form = &$form_state->getCompleteForm();
-          call_user_func_array($form_state->prepareCallback($callback), 
+          call_user_func_array($form_state->prepareCallback($callback),
             array(
               &$elements,
               &$form_state,
-              &$complete_form
+              &$complete_form,
             )
           );
         }

@@ -9,7 +9,8 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Quick Node Clone is meant as a way in Drupal 8 to clone nodes. It currently supports cloning of the following fields on nodes:
+Quick Node Clone is meant as a way in Drupal 8 to clone nodes. It currently
+supports cloning of the following fields on nodes:
 
     Textfield
     Textarea
@@ -19,9 +20,13 @@ Quick Node Clone is meant as a way in Drupal 8 to clone nodes. It currently supp
 
 It can be easily modified to support more as well.
 
-The module adds a "Clone (Quick)" tab to a node. When clicked, a new node is created and fields from the previous node are populated into the new fields.
+The module adds a "Clone (Quick)" tab to a node. When clicked, a new node is 
+created and fields from the previous node are populated into the new fields.
 
-This may be duplicate work of node_clone, but as of this writing (12/15/15) they don't have a D8 version and this code was created for a project from scratch in a reusable manner. This is meant to support different field types like inline_entity_form easily.
+This may be duplicate work of node_clone, but as of this writing (12/15/15) 
+they don't have a D8 version and this code was created for a project from 
+scratch in a reusable manner. This is meant to support different field types
+like inline_entity_form easily.
 
 
 REQUIREMENTS

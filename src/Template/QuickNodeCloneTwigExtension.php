@@ -552,9 +552,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
 
     return implode($glue, array_map(function($item) use ($env) {
       // If $item is not marked safe then it will be escaped.
-      if(isset($this)) {
-        return $this->escapeFilter($env, $item, 'html', NULL, TRUE);
-      }
+      return $this->escapeFilter($env, $item, 'html', NULL, TRUE);
     }, (array) $value));
   }
 
