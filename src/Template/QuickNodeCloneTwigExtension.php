@@ -209,7 +209,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Generates a URL path given a route name and parameters.
    *
-   * @param string
+   * @param string $name
    *   The name of the route.
    * @param array $parameters
    *   An associative array of route parameters names and values.
@@ -230,7 +230,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Generates an absolute URL given a route name and parameters.
    *
-   * @param string
+   * @param string $name
    *   The name of the route.
    * @param array $parameters
    *   An associative array of route parameter names and values.
@@ -368,7 +368,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Provides a placeholder wrapper around ::escapeFilter.
    *
-   * @param \Twig_Environment
+   * @param \Twig_Environment $env
    *   A Twig_Environment instance.
    * @param mixed $string
    *   The value to be escaped.
@@ -376,7 +376,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
    * @return string|null
    *   The escaped, rendered output, or NULL if there is no valid output.
    */
-  public function escapePlaceholder($env, $string) {
+  public function escapePlaceholder(\Twig_Environment $env, $string) {
     return '<em class="placeholder">' . $this->escapeFilter($env, $string) . '</em>';
   }
 

@@ -183,7 +183,7 @@ class QuickNodeCloneRenderer extends Renderer {
         '#create_placeholder',
         // These keys are not actually supported, but they are added
         // automatically by the Renderer, so we don't crash on them; them
-        // being missing when their #lazy_builder callback is invoked won't 
+        // being missing when their #lazy_builder callback is invoked won't
         // surprise the developer.
         '#weight',
         '#printed',

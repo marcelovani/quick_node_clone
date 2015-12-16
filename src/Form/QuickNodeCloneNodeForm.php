@@ -184,7 +184,7 @@ class QuickNodeCloneNodeForm extends NodeForm {
    *   The manipulated form with default values.
    */
   public function populateCloneAddForm(array $form, FormStateInterface $form_state) {
-    // Retreive values from form_state
+    // Retrieve values from form_state
     // The inline_entity_form module uses its injected states from the
     // controller to pre-populate.
     $values = array();

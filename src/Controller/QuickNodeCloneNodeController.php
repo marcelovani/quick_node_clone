@@ -137,7 +137,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
 
   /**
    * Only add an IEF to the child if it existed in the parent.
-   * 
+   *
    * If we don't do this check, validation is on for blank child IEF fields.
    *
    * @param array $iefs
