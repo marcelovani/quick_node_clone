@@ -459,7 +459,6 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
 
     // This is a normal render array, which is safe by definition, with
     // special simple cases already handled.
-
     // Early return if this element was pre-rendered (no need to re-render).
     if (isset($arg['#printed']) && $arg['#printed'] == TRUE && isset($arg['#markup']) && strlen($arg['#markup']) > 0) {
       return $arg['#markup'];

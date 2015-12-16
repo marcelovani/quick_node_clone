@@ -157,7 +157,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
     foreach($iefs as $key => $value) {
       if(isset($value['#id'])) {
         $hasReferences = FALSE;
-        foreach($value['entities'] as $eVey => $eVal) {
+        foreach($value['entities'] as $eVal) {
           if(isset($eVal['#id'])) {
             $hasReferences = TRUE;
           }
