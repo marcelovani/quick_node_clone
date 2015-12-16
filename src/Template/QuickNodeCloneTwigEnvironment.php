@@ -38,7 +38,7 @@ class QuickNodeCloneTwigEnvironment extends \Twig_Environment {
    *   The options for the Twig environment.
    */
   public function __construct($root, CacheBackendInterface $cache, $twig_extension_hash, \Twig_LoaderInterface $loader = NULL, $options = array()) {
-    //parent::__construct($root, $cache, $twig_extension_hash, $loader, $options);
+    // parent::__construct($root, $cache, $twig_extension_hash, $loader, $options);
     // Ensure that twig.engine is loaded, given that it is needed to render a
     // template because functions like TwigExtension::escapeFilter() are called.
     require_once $root . '/core/themes/engines/twig/twig.engine';
@@ -116,21 +116,24 @@ class QuickNodeCloneTwigEnvironment extends \Twig_Environment {
     return Markup::create($this->loadTemplate($template_string, NULL)->render($context));
   }
 
-    /**
-     * Renders a template.
-     *
-     * @param string $name    The template name
-     * @param array  $context An array of parameters to pass to the template
-     *
-     * @return string The rendered template
-     *
-     * @throws Twig_Error_Loader  When the template cannot be found
-     * @throws Twig_Error_Syntax  When an error occurred during compilation
-     * @throws Twig_Error_Runtime When an error occurred during rendering
-     */
-    public function render($name, array $context = array())
-    {
-      return $this->loadTemplate($name)->render($context);
-    }
+  /**
+   * Renders a template.
+   *
+   * @param string $name
+   *   The template name
+   * @param array $contextAn
+   *   array of parameters to pass to the template
+   *   An array of parameters to pass to the template
+   *
+   * @return string The rendered template
+   *
+   * @throws Twig_Error_Loader  When the template cannot be found
+   * @throws Twig_Error_Syntax  When an error occurred during compilation
+   * @throws Twig_Error_Runtime When an error occurred during rendering
+   */
+  public function render($name, array $context = array()) {
+
+    return $this->loadTemplate($name)->render($context);
+  }
 
 }

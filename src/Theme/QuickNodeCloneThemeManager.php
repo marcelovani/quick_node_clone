@@ -9,14 +9,10 @@ namespace Drupal\quick_node_clone\Theme;
 
 use Drupal\Core\Theme\ThemeManager;
 use Drupal\Core\Theme\ThemeManagerInterface;
-use Drupal\Core\Theme\ActiveTheme;
-use Drupal\Core\Theme\Registry;
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 use Drupal\Core\Theme\ThemeInitializationInterface;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Routing\StackedRouteMatchInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Template\Attribute;
@@ -304,9 +300,8 @@ class QuickNodeCloneThemeManager extends ThemeManager implements ThemeManagerInt
         $variables['theme_hook_suggestion'] = $theme_hook_suggestion;
       }
 
-      //@GFS
-      //TODO: Let's not hardcode this template file path.
-      if($template_file == 'core/themes/classy/templates/content-edit/node-edit-form.html.twig') {
+      // TODO: Let's not hardcode this template file path.
+      if ($template_file == 'core/themes/classy/templates/content-edit/node-edit-form.html.twig') {
         $render_function = 'content_management_relation_render_template';
       }
       $output = $render_function($template_file, $variables);

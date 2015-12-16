@@ -8,7 +8,6 @@
 namespace Drupal\quick_node_clone\Form;
 
 use Drupal\quick_node_clone\Render\QuickNodeCloneElement;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormErrorHandlerInterface;
 use Drupal\Core\Form\FormErrorHandler;

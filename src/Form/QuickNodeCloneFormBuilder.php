@@ -9,28 +9,21 @@ namespace Drupal\quick_node_clone\Form;
 
 use Drupal\quick_node_clone\Render\QuickNodeCloneElement;
 use Drupal\quick_node_clone\Form\QuickNodeCloneFormValidator;
-use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormSubmitterInterface;
 use Drupal\Core\Form\FormCacheInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBuilder;
-use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Form\Exception\BrokenPostRequestException;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Provides form building and processing.
@@ -226,7 +219,7 @@ class QuickNodeCloneFormBuilder extends FormBuilder {
 
       // Assign a decimal placeholder weight to preserve original array order.
       if (!isset($element[$key]['#weight'])) {
-        $element[$key]['#weight'] = $count/1000;
+        $element[$key]['#weight'] = $count / 1000;
       }
       else {
         // If one of the child elements has a weight then we will need to sort
@@ -309,7 +302,5 @@ class QuickNodeCloneFormBuilder extends FormBuilder {
     }
     return $element;
   }
-
-
 
 }

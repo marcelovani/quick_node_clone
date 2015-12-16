@@ -11,21 +11,16 @@ use Drupal\quick_node_clone\Render\QuickNodeCloneRenderer;
 use Drupal\Core\Render\MainContent\HtmlRenderer;
 use Drupal\Core\Render\MainContent\MainContentRendererInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Controller\TitleResolverInterface;
-use Drupal\Core\Display\PageVariantInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Display\ContextAwareVariantInterface;
-use Drupal\Core\Render\HtmlResponse;
-use Drupal\Core\Render\PageDisplayVariantSelectionEvent;
 use Drupal\Core\Render\RenderCacheInterface;
-use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Default main content renderer for Quick Node Clone HTML requests.
  *
  * For attachment handling of HTML responses:
+ *
  * @see template_preprocess_html()
  * @see \Drupal\Core\Render\AttachmentsResponseProcessorInterface
  * @see \Drupal\Core\Render\BareHtmlPageRenderer

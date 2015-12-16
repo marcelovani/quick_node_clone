@@ -15,9 +15,6 @@ use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Render\PlaceholderGeneratorInterface;
 use Drupal\Core\Render\RenderCacheInterface;
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
@@ -171,7 +168,9 @@ class QuickNodeCloneRenderer extends Renderer {
       if (count($elements['#lazy_builder']) !== 2) {
         throw new \DomainException('The #lazy_builder property must have an array as a value, containing two values: the callback, and the arguments for the callback.');
       }
-      if (count($elements['#lazy_builder'][1]) !== count(array_filter($elements['#lazy_builder'][1], function($v) { return is_null($v) || is_scalar($v); }))) {
+      if (count($elements['#lazy_builder'][1]) !== count(array_filter($elements['#lazy_builder'][1], function($v) {
+        return is_null($v) || is_scalar($v);
+      }))) {
         throw new \DomainException("A #lazy_builder callback's context may only contain scalar values or NULL.");
       }
       $children = QuickNodeCloneElement::children($elements);
@@ -186,7 +185,7 @@ class QuickNodeCloneRenderer extends Renderer {
         // by the Renderer, so we don't crash on them; them being missing when
         // their #lazy_builder callback is invoked won't surprise the developer.
         '#weight',
-        '#printed'
+        '#printed',
       ];
       $unsupported_keys = array_diff(array_keys($elements), $supported_keys);
       if (count($unsupported_keys)) {

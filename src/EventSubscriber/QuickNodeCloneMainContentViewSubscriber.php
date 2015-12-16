@@ -86,15 +86,16 @@ class QuickNodeCloneMainContentViewSubscriber implements EventSubscriberInterfac
 
     // Render the controller result into a response if it's a render array.
     if (is_array($result) && ($request->query->has(static::WRAPPER_FORMAT) || $request->getRequestFormat() == 'html')) {
-      //Determine if we're on a node clone page
-      //Change the html wrapper to our custom one if so
+      // Determine if we're on a node clone page
+      // Change the html wrapper to our custom one if so.
       $node_clone_page = preg_match('/^\/[a-z]+\/node\/[0-9]+\/quick_clone\/[a-z]+$/i', $request->getPathInfo());
-      if($node_clone_page) {
+      if ($node_clone_page) {
         $wrapper = 'quick_node_clone_html';
-      } else {
+      }
+      else {
         $wrapper = $request->query->get(static::WRAPPER_FORMAT, 'html');
       }
-    
+
       // Fall back to HTML if the requested wrapper envelope is not available.
       $wrapper = isset($this->mainContentRenderers[$wrapper]) ? $wrapper : 'html';
 

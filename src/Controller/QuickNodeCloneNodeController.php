@@ -7,18 +7,10 @@
 
 namespace Drupal\quick_node_clone\Controller;
 
-use Drupal\quick_node_clone\Form\QuickNodeCloneFormBuilder;
 use Drupal\quick_node_clone\Entity\QuickNodeCloneEntityFormBuilder;
 use Drupal\quick_node_clone\Render\QuickNodeCloneRenderer;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\Url;
-use Drupal\node\NodeTypeInterface;
-use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Controller\NodeController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -82,17 +74,17 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
     $parent_node = $this->entityManager()->getStorage('node')->load($node);
     $starting_fields = $this->getParentNodeFields($parent_node);
 
-    //Get the form of a parent node
-    $parent_form = $this->entityFormBuilder()->getForm($parent_node);  
+    // Get the form of a parent node.
+    $parent_form = $this->entityFormBuilder()->getForm($parent_node);
 
-    //Set our starting IEF form states to the parent.
-    //This will make IEF build the correct references in the child.
-    if(isset($parent_form['inline_entity_form'])) {
+    // Set our starting IEF form states to the parent.
+    // This will make IEF build the correct references in the child.
+    if (isset($parent_form['inline_entity_form'])) {
       $starting_fields['inline_entity_form'] = $this->getParentIefs($parent_form['inline_entity_form']);
     }
-    //Create the new child node, but don't save yet!
+    // Create the new child node, but don't save yet!
     $node = $this->entityManager()->getStorage('node')->create(['type' => $parent_node->getType()]);
-    //Get the actual child form
+    // Get the actual child form.
     $form = $this->entityFormBuilder()->getForm($node, 'quick_node_clone', $starting_fields);
 
     return $form;
@@ -111,13 +103,13 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
     $parent  = Node::load($node);
 
     return $this->t('Clone of "@node_id"', array(
-      '@node_id' => $parent->getTitle()
-      )
+      '@node_id' => $parent->getTitle(),
+    )
     );
   }
 
   /**
-   * Get the parent fields in order to inject into form_state for 
+   * Get the parent fields in order to inject into form_state for
    * pre-population.
    *
    * @param \Drupal\node\Node $parent_node
@@ -129,8 +121,8 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   public function getParentNodeFields($parent_node) {
     $parent = $parent_node->toArray();
     $starting_fields = array();
-    foreach($parent as $name => $value) {
-      if(strpos($name, 'field_', 0) === 0 || 
+    foreach ($parent as $name => $value) {
+      if (strpos($name, 'field_', 0) === 0 ||
         $name == 'title' ||
         $name == 'body' ||
         $name == 'form' ||
@@ -143,7 +135,7 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
   }
 
   /**
-   * Only add an IEF to the child if it existed in the parent. 
+   * Only add an IEF to the child if it existed in the parent.
    * If we don't do this check, validation is on for blank child IEF fields.
    *
    * @param $iefs
@@ -154,15 +146,15 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
    */
   public function getParentIefs($iefs) {
     $hasReferences = FALSE;
-    foreach($iefs as $key => $value) {
-      if(isset($value['#id'])) {
+    foreach ($iefs as $key => $value) {
+      if (isset($value['#id'])) {
         $hasReferences = FALSE;
-        foreach($value['entities'] as $eVal) {
-          if(isset($eVal['#id'])) {
+        foreach ($value['entities'] as $eVal) {
+          if (isset($eVal['#id'])) {
             $hasReferences = TRUE;
           }
         }
-        if(!$hasReferences) {
+        if (!$hasReferences) {
           unset($iefs[$key]);
         }
       }

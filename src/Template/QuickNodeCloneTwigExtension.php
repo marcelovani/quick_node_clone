@@ -133,7 +133,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
       // This function will receive a renderable array, if an array is detected.
       new \Twig_SimpleFunction('render_var', array($this, 'renderVar')),
       // The url and path function are defined in close parallel to those found
-      // in \Symfony\Bridge\Twig\Extension\RoutingExtension
+      // in \Symfony\Bridge\Twig\Extension\RoutingExtension.
       new \Twig_SimpleFunction('url', array($this, 'getUrl'), array('is_safe_callback' => array($this, 'isUrlGenerationSafe'))),
       new \Twig_SimpleFunction('path', array($this, 'getPath'), array('is_safe_callback' => array($this, 'isUrlGenerationSafe'))),
       new \Twig_SimpleFunction('link', array($this, 'getLink')),
@@ -160,12 +160,12 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
       new \Twig_SimpleFilter('placeholder', [$this, 'escapePlaceholder'], array('is_safe' => array('html'), 'needs_environment' => TRUE)),
 
       // Replace twig's escape filter with our own.
-      new \Twig_SimpleFilter('drupal_escape', [$this, 'escapeFilter'], array('needs_environment' => true, 'is_safe_callback' => 'twig_escape_filter_is_safe')),
+      new \Twig_SimpleFilter('drupal_escape', [$this, 'escapeFilter'], array('needs_environment' => TRUE, 'is_safe_callback' => 'twig_escape_filter_is_safe')),
 
       // Implements safe joining.
       // @todo Make that the default for |join? Upstream issue:
       //   https://github.com/fabpot/Twig/issues/1420
-      new \Twig_SimpleFilter('safe_join', [$this, 'safeJoin'], ['needs_environment' => true, 'is_safe' => ['html']]),
+      new \Twig_SimpleFilter('safe_join', [$this, 'safeJoin'], ['needs_environment' => TRUE, 'is_safe' => ['html']]),
 
       // Array filters.
       new \Twig_SimpleFilter('without', 'twig_without'),
@@ -216,7 +216,8 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
    * @param array $options
    *   (optional) An associative array of additional options. The 'absolute'
    *   option is forced to be FALSE.
-   *   @see \Drupal\Core\Routing\UrlGeneratorInterface::generateFromRoute().
+   *
+   * @see \Drupal\Core\Routing\UrlGeneratorInterface::generateFromRoute().
    *
    * @return string
    *   The generated URL path (relative URL) for the given route.
@@ -349,7 +350,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
   /**
    * Attaches an asset library to the template, and hence to the response.
    *
-   * Allows Twig templates to attach asset libraries using
+   * Allows Twig templates to attach asset libraries using.
    * @code
    * {{ attach_library('extension/library_name') }}
    * @endcode
@@ -547,7 +548,7 @@ class QuickNodeCloneTwigExtension extends \Twig_Extension {
    */
   public function safeJoin(\Twig_Environment $env, $value, $glue = '') {
     if ($value instanceof \Traversable) {
-      $value = iterator_to_array($value, false);
+      $value = iterator_to_array($value, FALSE);
     }
 
     return implode($glue, array_map(function($item) use ($env) {

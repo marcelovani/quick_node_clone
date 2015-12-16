@@ -7,14 +7,10 @@
 
 namespace Drupal\quick_node_clone\Form;
 
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeForm;
-use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\PrivateTempStoreFactory;
-use Drupal\Core\Routing\RouteMatch;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form controller for Quick Node Clone edit forms.
@@ -232,10 +228,12 @@ class QuickNodeCloneNodeForm extends NodeForm {
     // Default textfield content.
     if ($name == 'title') {
       $content = 'Clone of ' . $value[0]['value'];
-    } else {
-      if(isset($value[0]['value'])) {
+    }
+    else {
+      if (isset($value[0]['value'])) {
         $content = $value[0]['value'];
-      } else {
+      }
+      else {
         $content = '';
       }
     }
@@ -262,7 +260,8 @@ class QuickNodeCloneNodeForm extends NodeForm {
     // Default textarea content.
     if (isset($value[0]['value'])) {
       $content = $value[0]['value'];
-    } else {
+    }
+    else {
       $content = '';
     }
     if (isset($form[$name]['widget'][0])) {
@@ -286,7 +285,7 @@ class QuickNodeCloneNodeForm extends NodeForm {
    *   The manipulated form with default value added to one select list.
    */
   public function populateDefaultSelect(array $form, $name, array $value) {
-    if (!isset($form[$name]['widget']['#default_value']) && 
+    if (!isset($form[$name]['widget']['#default_value']) &&
       !isset($form[$name]['widget']['#ief_id'])) {
 
       // The widget value is just a single select value.
@@ -308,11 +307,11 @@ class QuickNodeCloneNodeForm extends NodeForm {
    *   The value to set as default.
    *
    * @return array
-   *   The manipulated form with default value added to one taxonomy 
+   *   The manipulated form with default value added to one taxonomy
    *   term reference.
    */
   public function populateDefaultTaxonomy(array $form, $name, array $value) {
-    if(!isset($form[$name]['widget']['#ief_id'])) {
+    if (!isset($form[$name]['widget']['#ief_id'])) {
 
       // The widget value might be multiple references (Ex: Taxonomy).
       if (isset($value[0]['target_id'])) {
@@ -325,6 +324,5 @@ class QuickNodeCloneNodeForm extends NodeForm {
     }
     return $form;
   }
-
 
 }
