@@ -1,44 +1,4 @@
 services:
-  quick_node_clone.form_validator:
-    class: Drupal\quick_node_clone\Form\QuickNodeCloneFormValidator
-    arguments: ['@request_stack', '@string_translation', '@csrf_token', '@logger.channel.form', '@quick_node_clone.form_error_handler']
-  quick_node_clone.form_error_handler:
-    class: Drupal\quick_node_clone\Form\QuickNodeCloneFormErrorHandler
-  quick_node_clone.form_builder:
-    class: Drupal\quick_node_clone\Form\QuickNodeCloneFormBuilder
-    arguments: ['@quick_node_clone.form_validator', '@form_submitter', '@form_cache', '@module_handler', '@event_dispatcher', '@request_stack', '@class_resolver', '@element_info', '@theme.manager', '@?csrf_token']
   quick_node_clone.entity.form_builder:
     class: Drupal\quick_node_clone\Entity\QuickNodeCloneEntityFormBuilder
-    arguments: ['@entity.manager', '@quick_node_clone.form_builder']
-  quick_node_clone.theme.manager:
-    class: Drupal\quick_node_clone\Theme\QuickNodeCloneThemeManager
-    arguments: ['@app.root', '@theme.negotiator', '@theme.initialization', '@request_stack', '@module_handler']
-    calls:
-      - [setThemeRegistry, ['@theme.registry']]
-  quick_node_clone.renderer:
-    class: Drupal\quick_node_clone\Render\QuickNodeCloneRenderer
-    arguments: ['@controller_resolver', '@quick_node_clone.theme.manager', '@plugin.manager.element_info', '@render_placeholder_generator', '@render_cache', '@request_stack', '%renderer.config%']
-  quick_node_clone.twig:
-    class: Drupal\quick_node_clone\Template\QuickNodeCloneTwigEnvironment
-    arguments: ['@app.root', '@cache.default', '%twig_extension_hash%', '@twig.loader', '%twig.config%']
-    tags:
-      - { name: service_collector, tag: 'quick_node_clone.twig.extension', call: addExtension }
-  quick_node_clone.twig.extension:
-    class: Drupal\quick_node_clone\Template\QuickNodeCloneTwigExtension
-    arguments: ['@quick_node_clone.renderer']
-    tags:
-      - { name: quick_node_clone.twig.extension, priority: 100 }
-    calls:
-      - [setUrlGenerator, ['@url_generator']]
-      - [setThemeManager, ['@theme.manager']]
-      - [setDateFormatter, ['@date.formatter']]
-  main_content_renderer.quick_node_clone_html:
-    class: Drupal\quick_node_clone\Render\MainContent\QuickNodeCloneHtmlRenderer
-    arguments: ['@title_resolver', '@plugin.manager.display_variant', '@event_dispatcher', '@module_handler', '@quick_node_clone.renderer', '@render_cache', '%renderer.config%']
-    tags:
-      - { name: render.main_content_renderer, format: quick_node_clone_html }
-  quick_node_clone.main_content_view_subscriber:
-    class: Drupal\quick_node_clone\EventSubscriber\QuickNodeCloneMainContentViewSubscriber
-    arguments: ['@class_resolver', '@current_route_match', '%main_content_renderers%']
-    tags:
-      - { name: event_subscriber, priority: 100 }
+    arguments: ['@entity.manager', '@form_builder']
