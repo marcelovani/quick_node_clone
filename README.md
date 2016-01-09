@@ -9,24 +9,16 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Quick Node Clone is meant as a way in Drupal 8 to clone nodes. It currently
-supports cloning of the following fields on nodes:
+Quick Node Clone is meant as a way in Drupal 8 to clone nodes. It currently supports cloning of most field types including [Inline Entity Form](https://www.drupal.org/project/inline_entity_form) and [Field Collection](https://www.drupal.org/project/field_collection).
 
-    Textfield
-    Textarea
-    Taxonomy / Entity Reference
-    Inline Entity Form (from the inline_entity_form module)
-    Select
+The module adds a "Clone" tab to a node. When clicked, a new node is created and fields from the previous node are populated into the new fields.
 
-It can be easily modified to support more as well.
+This may be duplicate work of [Node Clone](https://www.drupal.org/project/node_clone), but as of this writing (1/7/16) they don't have a D8 version and this code was created for a project from scratch in a reusable manner. This is meant to support different field types than core easily.
 
-The module adds a "Clone (Quick)" tab to a node. When clicked, a new node is 
-created and fields from the previous node are populated into the new fields.
+Future TODO: Support more than just nodes! With the recent improvements from 1/7 it could be expanded to all Content Entities fairly easily. This will likely be in its own properly named module with a better method for adding a UI to other content entities.
 
-This may be duplicate work of node_clone, but as of this writing (12/15/15) 
-they don't have a D8 version and this code was created for a project from 
-scratch in a reusable manner. This is meant to support different field types
-like inline_entity_form easily.
+ * Drupal.org Project: https://www.drupal.org/sandbox/vilepickle/2636000
+ * Github (for opening pull requests): https://github.com/vilepickle/quick_node_clone
 
 
 REQUIREMENTS
@@ -41,7 +33,7 @@ INSTALLATION
 ------------
 
  * Install as you would normally install a contributed Drupal module.
- * Visit a node view page to clone it with the Clone (Quick) tab.
+ * Visit a node view page to clone it with the Clone tab.
 
 
 MAINTAINERS
