@@ -23,18 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class QuickNodeCloneNodeForm extends NodeForm {
 
   /**
-   * Constructs a ContentEntityForm object.
-   *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
-   * @param \Drupal\user\PrivateTempStoreFactory $temp_store_factory
-   *   The factory for the temp store object.
-   */
-  public function __construct(EntityManagerInterface $entity_manager, PrivateTempStoreFactory $temp_store_factory) {
-    parent::__construct($entity_manager, $temp_store_factory);
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
@@ -48,10 +36,8 @@ class QuickNodeCloneNodeForm extends NodeForm {
   protected function actions(array $form, FormStateInterface $form_state) {
     $element = parent::actions($form, $form_state);
 
-    $node = $this->entity;
-
     $element['submit']['#access'] = TRUE;
-    $element['submit']['#value'] = t('Save New Clone');
+    $element['submit']['#value'] = $this->t('Save New Clone');
 
     if ($element['submit']['#access'] && \Drupal::currentUser()->hasPermission('access content overview')) {
       // Add a "Publish" button.

@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Returns responses for Quick Node Clone Node routes.
  */
-class QuickNodeCloneNodeController extends NodeController implements ContainerInjectionInterface {
+class QuickNodeCloneNodeController extends NodeController {
 
   /**
    * The entity form builder.
@@ -93,7 +93,6 @@ class QuickNodeCloneNodeController extends NodeController implements ContainerIn
    */
   public function clonePageTitle($node) {
     $parent  = Node::load($node);
-
     return $this->t('Clone of "@node_id"', array(
       '@node_id' => $parent->getTitle()
       )

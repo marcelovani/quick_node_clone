@@ -19,19 +19,6 @@ use Drupal\Core\Entity\EntityManagerInterface;
 class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
 
   /**
-   * Constructs a new EntityFormBuilder.
-   *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
-   * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
-   *   The form builder.
-   */
-  public function __construct(EntityManagerInterface $entity_manager, FormBuilderInterface $form_builder) {
-    $this->entityManager = $entity_manager;
-    $this->formBuilder = $form_builder;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function getForm(EntityInterface $original_entity, $operation = 'default', array $form_state_additions = array()) {
