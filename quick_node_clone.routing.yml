@@ -1,5 +1,5 @@
 quick_node_clone.node.quick_clone:
-  path: '/node/{node}/quick_clone'
+  path: '/clone/{node}/quick_clone'
   defaults:
     _controller: '\Drupal\quick_node_clone\Controller\QuickNodeCloneNodeController::cloneNode'
     _title_callback: '\Drupal\quick_node_clone\Controller\QuickNodeCloneNodeController::clonePageTitle'
