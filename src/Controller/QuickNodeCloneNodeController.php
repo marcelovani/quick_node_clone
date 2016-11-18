@@ -13,6 +13,7 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Controller\NodeController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Returns responses for Quick Node Clone Node routes.
@@ -71,8 +72,13 @@ class QuickNodeCloneNodeController extends NodeController {
    */
   public function cloneNode($node) {
     $parent_node = $this->entityManager()->getStorage('node')->load($node);
-    $form = $this->entityFormBuilder()->getForm($parent_node, 'quick_node_clone');
-    return $form;
+    if(!empty($parent_node)){
+      $form = $this->entityFormBuilder()->getForm($parent_node, 'quick_node_clone');
+      return $form;
+    }
+    else {
+      throw new NotFoundHttpException();
+    }
   }
 
   /**
