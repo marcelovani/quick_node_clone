@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\quick_node_clone\Form\QuickNodeCloneNodeForm
- */
-
 namespace Drupal\quick_node_clone\Form;
 
 use Drupal\node\NodeForm;
