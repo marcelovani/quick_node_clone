@@ -71,7 +71,7 @@ class QuickNodeCloneNodeController extends NodeController {
    *   A node submission form.
    */
   public function cloneNode($node) {
-    $parent_node = $this->entityManager()->getStorage('node')->load($node);
+    $parent_node = $this->entityTypeManager()->getStorage('node')->load($node);
     if(!empty($parent_node)){
       $form = $this->entityFormBuilder()->getForm($parent_node, 'quick_node_clone');
       return $form;
