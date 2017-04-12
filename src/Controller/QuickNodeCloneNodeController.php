@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\quick_node_clone\Controller\QuickNodeCloneNodeController.
- */
-
 namespace Drupal\quick_node_clone\Controller;
 
 use Drupal\quick_node_clone\Entity\QuickNodeCloneEntityFormBuilder;
