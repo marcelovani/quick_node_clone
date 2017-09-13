@@ -5,3 +5,5 @@ quick_node_clone.node.quick_clone:
     _title_callback: '\Drupal\quick_node_clone\Controller\QuickNodeCloneNodeController::clonePageTitle'
   requirements:
     _node_add_access: 'node:{node_type}'
+  options:
+    _admin_route: TRUE
