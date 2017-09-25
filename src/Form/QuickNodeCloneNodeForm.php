@@ -31,6 +31,7 @@ class QuickNodeCloneNodeForm extends NodeForm {
       // Remove the "Save" button.
       $element['submit']['#access'] = FALSE;
       $element['unpublish']['#access'] = FALSE;
+      $element['unpublish']['#weight'] = 10;
     }
 
     $element['delete']['#access'] = FALSE;
