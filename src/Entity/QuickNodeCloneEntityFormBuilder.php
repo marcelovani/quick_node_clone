@@ -18,16 +18,38 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
    */
   public function getForm(EntityInterface $original_entity, $operation = 'default', array $form_state_additions = array()) {
 
-    // Clone the entity using the awesome createDuplicate() core function
-    $new_entity = $original_entity->createDuplicate();
+    // Clone the node using the awesome createDuplicate() core function.
+    /** @var \Drupal\node\Entity\Node $new_node */
+    $new_node = $original_entity->createDuplicate();
 
-    $new_entity->setTitle(t('Clone of ') . $new_entity->getTitle());
+    // Check for paragraph fields which need to be duplicated as well.
+    foreach ($new_node->getTranslationLanguages() as $langcode => $language) {
+      $translated_node = $new_node->getTranslation($langcode);
+
+      foreach ($translated_node->getFieldDefinitions() as $field_definition) {
+        $field_storage_definition = $field_definition->getFieldStorageDefinition();
+        $field_settings = $field_storage_definition->getSettings();
+        if (isset($field_settings['target_type']) && $field_settings['target_type'] == "paragraph") {
+
+          // Each paragraph entity will be duplicated, so we won't be editing the same as the parent in every clone.
+          $field_name = $field_storage_definition->getName();
+          if (!$translated_node->get($field_name)->isEmpty()) {
+            foreach ($translated_node->get($field_name) as $value) {
+              if ($value->entity) {
+                $value->entity = $value->entity->createDuplicate();
+              }
+            }
+          }
+        }
+      }
+      $translated_node->setTitle(t('Clone of @title', ['@title' => $original_entity->getTitle()], ['langcode' => $langcode]));
+    }
 
     // Get the form object for the entity defined in entity definition
-    $form_object = $this->entityManager->getFormObject($new_entity->getEntityTypeId(), $operation);
+    $form_object = $this->entityManager->getFormObject($new_node->getEntityTypeId(), $operation);
 
     // Assign the form's entity to our duplicate!
-    $form_object->setEntity($new_entity);
+    $form_object->setEntity($new_node);
 
     $form_state = (new FormState())->setFormState($form_state_additions);
     return $this->formBuilder->buildForm($form_object, $form_state);
