@@ -59,13 +59,13 @@ class QuickNodeCloneNodeController extends NodeController {
   /**
    * Provides the node submission form.
    *
-   * @param \Drupal\node\NodeTypeInterface $node_type
-   *   The node type entity for the node.
+   * @param \Drupal\node\Entity\Node $node
+   *   The node entity to clone.
    *
    * @return array
    *   A node submission form.
    */
-  public function cloneNode($node) {
+  public function cloneNode(\Drupal\node\Entity\Node $node) {
     if(!empty($node)){
       $form = $this->entityFormBuilder()->getForm($node, 'quick_node_clone');
       return $form;
