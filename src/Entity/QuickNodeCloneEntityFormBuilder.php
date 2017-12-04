@@ -29,10 +29,10 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
       foreach ($translated_node->getFieldDefinitions() as $field_definition) {
         $field_storage_definition = $field_definition->getFieldStorageDefinition();
         $field_settings = $field_storage_definition->getSettings();
+        $field_name = $field_storage_definition->getName();
         if (isset($field_settings['target_type']) && $field_settings['target_type'] == "paragraph") {
 
           // Each paragraph entity will be duplicated, so we won't be editing the same as the parent in every clone.
-          $field_name = $field_storage_definition->getName();
           if (!$translated_node->get($field_name)->isEmpty()) {
             foreach ($translated_node->get($field_name) as $value) {
               if ($value->entity) {
@@ -41,6 +41,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
             }
           }
         }
+        \Drupal::moduleHandler()->alter('cloned_node', $translated_node, $field_name, $field_settings);
       }
       $translated_node->setTitle(t('Clone of @title', ['@title' => $original_entity->getTitle()], ['langcode' => $langcode]));
     }
