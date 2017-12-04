@@ -66,9 +66,8 @@ class QuickNodeCloneNodeController extends NodeController {
    *   A node submission form.
    */
   public function cloneNode($node) {
-    $parent_node = $this->entityTypeManager()->getStorage('node')->load($node);
-    if(!empty($parent_node)){
-      $form = $this->entityFormBuilder()->getForm($parent_node, 'quick_node_clone');
+    if(!empty($node)){
+      $form = $this->entityFormBuilder()->getForm($node, 'quick_node_clone');
       return $form;
     }
     else {
@@ -86,9 +85,8 @@ class QuickNodeCloneNodeController extends NodeController {
    *   The page title.
    */
   public function clonePageTitle($node) {
-    $parent = Node::load($node);
     return $this->t('Clone of "@node"', array(
-      '@node' => $parent->getTitle()
+      '@node' => $node->getTitle()
       )
     );
   }
