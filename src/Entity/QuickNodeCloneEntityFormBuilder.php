@@ -43,7 +43,12 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
         }
         \Drupal::moduleHandler()->alter('cloned_node', $translated_node, $field_name, $field_settings);
       }
-      $translated_node->setTitle(t('Clone of @title', ['@title' => $original_entity->getTitle()], ['langcode' => $langcode]));
+      $prepend_text = "";
+      $qnc_config = \Drupal::config('quick_node_clone.settings');
+      if(!empty($qnc_config->get('text_to_prepend_to_title'))) {
+        $prepend_text = $qnc_config->get('text_to_prepend_to_title') . " ";
+      }
+      $translated_node->setTitle(t($prepend_text . '@title', ['@title' => $original_entity->getTitle()], ['langcode' => $langcode]));
     }
 
     // Get the form object for the entity defined in entity definition

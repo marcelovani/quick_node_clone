@@ -85,9 +85,14 @@ class QuickNodeCloneNodeController extends NodeController {
    *   The page title.
    */
   public function clonePageTitle($node) {
-    return $this->t('Clone of "@node"', array(
-      '@node' => $node->getTitle()
-      )
+    $prepend_text = "";
+    $qnc_config = \Drupal::config('quick_node_clone.settings');
+    if(!empty($qnc_config->get('text_to_prepend_to_title'))) {
+      $prepend_text = $qnc_config->get('text_to_prepend_to_title') . " ";
+    }
+    return $this->t($prepend_text . "@node", [
+       '@node' => $node->getTitle()
+      ]
     );
   }
 

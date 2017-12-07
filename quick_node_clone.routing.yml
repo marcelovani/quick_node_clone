@@ -11,3 +11,10 @@ quick_node_clone.node.quick_clone:
     parameters:
       node:
         type: entity:node
+quick_node_clone.settingsform:
+  path: '/admin/config/quick-node-clone'
+  defaults:
+    _form: '\Drupal\quick_node_clone\Form\QuickNodeCloneSettingForm'
+    _title: 'Quick Node Clone Setting'
+  requirements:
+    _permission: 'Administer Quick Node Clone Settings'
