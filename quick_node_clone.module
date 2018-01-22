@@ -18,9 +18,11 @@ function quick_node_clone_entity_type_build(array &$entity_types) {
 function quick_node_clone_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
   $operations = [];
 
+  $bundle = $entity->bundle();
   if (
     \Drupal::currentUser()->hasPermission('access content overview') &&
-    \Drupal::routeMatch()->getRouteName() === 'system.admin_content'
+    \Drupal::routeMatch()->getRouteName() === 'system.admin_content' &&
+    \Drupal::currentUser()->hasPermission("create $bundle content")
   ) {
     $path = '/clone/' . $entity->id() . '/quick_clone';
     $operations['quick_clone'] = [
