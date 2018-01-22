@@ -37,6 +37,12 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
             foreach ($translated_node->get($field_name) as $value) {
               if ($value->entity) {
                 $value->entity = $value->entity->createDuplicate();
+                foreach($value->entity->getFieldDefinitions() as $field_definition) {
+                  $field_storage_definition = $field_definition->getFieldStorageDefinition();
+                  $pfield_settings = $field_storage_definition->getSettings();
+                  $pfield_name = $field_storage_definition->getName();
+                  \Drupal::moduleHandler()->alter('cloned_node_paragraph_field', $value->entity, $pfield_name, $pfield_settings);
+                }
               }
             }
           }
