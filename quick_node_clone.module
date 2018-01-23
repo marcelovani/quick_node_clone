@@ -20,7 +20,7 @@ function quick_node_clone_entity_operation(\Drupal\Core\Entity\EntityInterface $
 
   $bundle = $entity->bundle();
   if (
-    \Drupal::currentUser()->hasPermission('access content overview') &&
+    \Drupal::currentUser()->hasPermission("clone $bundle content") &&
     \Drupal::currentUser()->hasPermission("create $bundle content")
   ) {
     $path = '/clone/' . $entity->id() . '/quick_clone';
