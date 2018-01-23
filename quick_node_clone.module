@@ -18,6 +18,11 @@ function quick_node_clone_entity_type_build(array &$entity_types) {
 function quick_node_clone_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
   $operations = [];
 
+  // Only add an operation for node entities.
+  if ($entity->getEntityTypeId() !== 'node') {
+    return $operations;
+  }
+
   $bundle = $entity->bundle();
   if (
     \Drupal::currentUser()->hasPermission("clone $bundle content") &&
