@@ -17,24 +17,15 @@ class QuickNodeCloneNodeForm extends NodeForm {
   protected function actions(array $form, FormStateInterface $form_state) {
     $element = parent::actions($form, $form_state);
 
-    $element['submit']['#access'] = TRUE;
-    $element['submit']['#value'] = $this->t('Save New Clone');
-
-    if (\Drupal::currentUser()->hasPermission('access content overview')) {
-      // Add a "Publish" button.
-      $element['publish'] = $element['submit'];
-      // If the "Publish" button is clicked, we want to update the status to "published".
-      $element['publish']['#published_status'] = TRUE;
-      $element['publish']['#value'] = t('Save New Clone');
-      $element['publish']['#weight'] = 0;
-
-      // Remove the "Save" button.
-      $element['submit']['#access'] = FALSE;
-      $element['unpublish']['#access'] = FALSE;
-      $element['unpublish']['#weight'] = 10;
+    // Brand the Publish / Unpublish buttons but first check if they are still there.
+    $clone_string = t('New Clone: ');
+    if (!empty($element['publish']['#value'])) {
+      $element['publish']['#value'] = $clone_string . $element['publish']['#value'];
+    }
+    if (!empty($element['unpublish']['#value'])) {
+      $element['unpublish']['#value'] = $clone_string . $element['unpublish']['#value'];
     }
 
-    $element['delete']['#access'] = FALSE;
     return $element;
   }
 
