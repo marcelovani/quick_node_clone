@@ -15,10 +15,12 @@ class QuickNodeCloneNodeAccess {
   public function cloneNode(AccountInterface $account, $node) {
     $node = Node::load($node);
     $node_type = $node->bundle();
-    $result = AccessResult::allowedIfHasPermissions($account, [
-      "clone $node_type content",
-      "create $node_type content"
-    ]);
+
+    if (_quick_node_clone_has_clone_permission($node_type)) {
+      $result = AccessResult::allowed();
+    } else {
+      $result = AccessResult::forbidden();
+    }
 
     $result->addCacheableDependency($node);
 
