@@ -2,18 +2,25 @@
 
 namespace Drupal\quick_node_clone\EventSubscriber;
 
-use Drupal\address\Event\AddressEvents;
 use Drupal\address\Event\AvailableCountriesEvent;
-use Drupal\address\Event\InitialValuesEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Provide an event subscriber to add initial values to address
+ * fields when cloning. This method is needed because of the way
+ * address handles its fields, otherwise we would be doing this
+ * sort of thing inside the form builder when cloning.
+ */
 class AddressEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[AddressEvents::INITIAL_VALUES][] = ['onInitialValues'];
+    if (!class_exists('\Drupal\address\Event\AddressEvents')) {
+      return $events;
+    }
+    $events[\Drupal\address\Event\AddressEvents::INITIAL_VALUES][] = ['onInitialValues'];
     return $events;
   }
 
@@ -83,7 +90,7 @@ class AddressEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\address\Event\InitialValuesEvent $event
    *   The initial values event.
    */
-  public function onInitialValues(InitialValuesEvent $event) {
+  public function onInitialValues(\Drupal\address\Event\InitialValuesEvent $event) {
     $event->setInitialValues($this->getInitialValues($event));
   }
 
