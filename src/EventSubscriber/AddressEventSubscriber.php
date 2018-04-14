@@ -2,7 +2,6 @@
 
 namespace Drupal\quick_node_clone\EventSubscriber;
 
-use Drupal\address\Event\AvailableCountriesEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
