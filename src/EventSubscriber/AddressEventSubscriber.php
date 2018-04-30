@@ -16,6 +16,9 @@ class AddressEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
+
+    $events = [];
+
     if (!class_exists('\Drupal\address\Event\AddressEvents')) {
       return $events;
     }
