@@ -47,7 +47,10 @@ function quick_node_clone_entity_operation(\Drupal\Core\Entity\EntityInterface $
  * @return bool
  *   TRUE or FALSE
  */
-function _quick_node_clone_has_clone_permission(string $bundle) {
+function _quick_node_clone_has_clone_permission($bundle) {
+  if(!is_string($bundle)) {
+    throw new InvalidArgumentException('Argument 1 passed to _quick_node_clone_has_clone_permission() must be of type string, ' . gettype($bundle) . ' given.');
+  }
   $current_user = \Drupal::currentUser();
   if ($current_user->hasPermission("administer nodes")) {
     return TRUE;
