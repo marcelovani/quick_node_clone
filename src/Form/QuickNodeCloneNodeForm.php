@@ -6,8 +6,9 @@ use Drupal\node\NodeForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for Quick Node Clone edit forms. We can override most of
- * the node form from here! Hooray!
+ * Form controller for Quick Node Clone edit forms.
+ *
+ * We can override most of the node form from here! Hooray!
  */
 class QuickNodeCloneNodeForm extends NodeForm {
 
@@ -17,13 +18,14 @@ class QuickNodeCloneNodeForm extends NodeForm {
   protected function actions(array $form, FormStateInterface $form_state) {
     $element = parent::actions($form, $form_state);
 
-    // Brand the Publish / Unpublish buttons but first check if they are still there.
-    $clone_string = t('New Clone: ');
+    // Brand the Publish / Unpublish buttons, but first check if they are still
+    // there.
+    $clone_string = t('New Clone:');
     if (!empty($element['publish']['#value'])) {
-      $element['publish']['#value'] = $clone_string . $element['publish']['#value'];
+      $element['publish']['#value'] = $clone_string . ' ' . $element['publish']['#value'];
     }
     if (!empty($element['unpublish']['#value'])) {
-      $element['unpublish']['#value'] = $clone_string . $element['unpublish']['#value'];
+      $element['unpublish']['#value'] = $clone_string . ' ' . $element['unpublish']['#value'];
     }
 
     return $element;
@@ -37,11 +39,19 @@ class QuickNodeCloneNodeForm extends NodeForm {
     $insert = $node->isNew();
     $node->save();
     $node_link = $node->link($this->t('View'));
-    $context = array('@type' => $node->getType(), '%title' => $node->label(), 'link' => $node_link);
-    $t_args = array('@type' => node_get_type_label($node), '%title' => $node->label());
+    $context = [
+      '@type' => $node->getType(),
+      '%title' => $node->label(),
+      'link' => $node_link,
+    ];
+    $t_args = [
+      '@type' => node_get_type_label($node),
+      '%title' => $node->label(),
+    ];
 
     if ($insert) {
-      $this->logger('content')->notice('@type: added %title (clone).', $context);
+      $this->logger('content')
+        ->notice('@type: added %title (clone).', $context);
       drupal_set_message(t('@type %title (clone) has been created.', $t_args));
     }
 
@@ -51,7 +61,7 @@ class QuickNodeCloneNodeForm extends NodeForm {
       if ($node->access('view')) {
         $form_state->setRedirect(
           'entity.node.canonical',
-          array('node' => $node->id())
+          ['node' => $node->id()]
         );
       }
       else {

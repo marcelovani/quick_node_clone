@@ -2,11 +2,10 @@
 
 namespace Drupal\quick_node_clone\Entity;
 
-use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Entity\EntityFormBuilder;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Form\FormState;
+use Drupal\node\Entity\Node;
 
 /**
  * Builds entity forms.
@@ -16,7 +15,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
   /**
    * {@inheritdoc}
    */
-  public function getForm(EntityInterface $original_entity, $operation = 'default', array $form_state_additions = array()) {
+  public function getForm(EntityInterface $original_entity, $operation = 'default', array $form_state_additions = []) {
 
     // Clone the node using the awesome createDuplicate() core function.
     /** @var \Drupal\node\Entity\Node $new_node */
@@ -30,13 +29,13 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
       \Drupal::moduleHandler()->alter('cloned_node', $node, $field_name, $field_settings);
       $prepend_text = "";
       $config = \Drupal::config('quick_node_clone.settings');
-      if(!empty($config->get('text_to_prepend_to_title'))) {
+      if (!empty($config->get('text_to_prepend_to_title'))) {
         $prepend_text = $config->get('text_to_prepend_to_title') . " ";
       }
       $translated_node->setTitle(t($prepend_text . '@title', ['@title' => $original_entity->getTitle()], ['langcode' => $langcode]));
     }
 
-    // Get the form object for the entity defined in entity definition
+    // Get the form object for the entity defined in entity definition.
     $form_object = $this->entityManager->getFormObject($new_node->getEntityTypeId(), $operation);
 
     // Assign the form's entity to our duplicate!
@@ -56,9 +55,10 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
   }
 
   /**
-   * Clone the paragraphs of a designated node. If we do not clone the
-   * paragraphs attached to the node, the linked paragraphs will be linked
-   * to two nodes which is not ideal.
+   * Clone the paragraphs of a node.
+   *
+   * If we do not clone the paragraphs attached to the node, the linked
+   * paragraphs would be linked to two nodes which is not ideal.
    *
    * @param \Drupal\node\Entity\Node $node
    *   The node to clone.
@@ -66,7 +66,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
    * @return \Drupal\node\Entity\Node
    *   The node with cloned paragraph fields.
    */
-  public function cloneParagraphs($node) {
+  public function cloneParagraphs(Node $node) {
     foreach ($node->getFieldDefinitions() as $field_definition) {
       $field_storage_definition = $field_definition->getFieldStorageDefinition();
       $field_settings = $field_storage_definition->getSettings();
@@ -77,7 +77,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
           foreach ($node->get($field_name) as $value) {
             if ($value->entity) {
               $value->entity = $value->entity->createDuplicate();
-              foreach($value->entity->getFieldDefinitions() as $field_definition) {
+              foreach ($value->entity->getFieldDefinitions() as $field_definition) {
                 $field_storage_definition = $field_definition->getFieldStorageDefinition();
                 $pfield_settings = $field_storage_definition->getSettings();
                 $pfield_name = $field_storage_definition->getName();
