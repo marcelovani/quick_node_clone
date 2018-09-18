@@ -26,7 +26,7 @@ class QuickNodeCloneEntityFormBuilder extends EntityFormBuilder {
       /** @var \Drupal\node\Entity\Node $translated_node */
       $translated_node = $new_node->getTranslation($langcode);
       $translated_node = $this->cloneParagraphs($translated_node);
-      \Drupal::moduleHandler()->alter('cloned_node', $node, $field_name, $field_settings);
+      \Drupal::moduleHandler()->alter('cloned_node', $translated_node);
       $prepend_text = "";
       $config = \Drupal::config('quick_node_clone.settings');
       if (!empty($config->get('text_to_prepend_to_title'))) {
